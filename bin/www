@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var app = require('../app');
+var http = require('http');
+var dotenv = require('dotenv');
+var { Rtmp } = require("../src/middlewares/rtmp.middleware");
+var mongoose = require('mongoose');
+
+dotenv.config({ path: './.env' });
+var rtmp = new Rtmp();
+mongoose.connect(process.env.dbUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+
+var serverHttp = http.createServer(app);
+
+serverHttp.listen('8080');
